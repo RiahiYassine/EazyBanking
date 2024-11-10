@@ -4,14 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.password.CompromisedPasswordChecker;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker;
+
+import javax.sql.DataSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,8 +24,6 @@ public class ProjectSecurityConfig{
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/myAccount","/myBalance","/myLoans","myCards").authenticated()
                 .requestMatchers("/notices","/contact","/error").permitAll());
-
-
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
 
@@ -33,13 +31,11 @@ public class ProjectSecurityConfig{
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails user = User.withUsername("user").password("{noop}123456").authorities("read").build();
-        UserDetails admin = User.withUsername("admin").password("{bcrypt}$2a$12$5gQ3D7fMe6TnpyoZ5T2tG.59fL/.JQJloA6zq6xYbmEzuHWZ8hk1a").authorities("admin").build(); //bcrypt-generated.com
-        return new InMemoryUserDetailsManager(user, admin);
-
+    public UserDetailsService userDetailsService(DataSource dataSource){
+        return new JdbcUserDetailsManager(dataSource); // Set up the JdbcUserDetailsManager
     }
 
+    
 
     @Bean
     public PasswordEncoder passwordEncoder(){
