@@ -1,13 +1,13 @@
-package learning.eazybanking;
+package learning.eazybank;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EazyBankingApplication {
+public class EazyBankApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EazyBankingApplication.class, args);
+        SpringApplication.run(EazyBankApplication.class, args);
     }
 
 }
