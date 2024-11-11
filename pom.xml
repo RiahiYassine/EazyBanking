@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>learning</groupId>
-    <artifactId>EazyBanking</artifactId>
+    <artifactId>EazyBank</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>EazyBanking</name>
-    <description>EazyBanking</description>
+    <name>EazyBank</name>
+    <description>EazyBank</description>
     <url/>
     <licenses>
         <license/>
