@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service // During the startup, spring boot is going to create the bean of this class
+@Service
 @RequiredArgsConstructor
 public class EazyBankUserDetailsService implements UserDetailsService {
 
